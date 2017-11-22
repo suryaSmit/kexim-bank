@@ -13,10 +13,12 @@ public class TestExecution {
 	KeximHomePage keximHomePageObj;
 	AdminHomePage adminHomePageObj;
 	BranchesPage branchesPageObj;
+	Roles Rolesobj;
+	
 	
 	@BeforeClass
 	public void launchBrowser() {
-		System.setProperty("webdriver.gecko.driver", ".//resources//geckodriver");
+		System.setProperty("webdriver.gecko.driver", ".\\resources\\geckodriver");
 		driver = new FirefoxDriver();
 		driver.get("http://www.srssprojects.in");
 		driver.manage().window().maximize();
@@ -24,6 +26,8 @@ public class TestExecution {
 		keximHomePageObj = new KeximHomePage();
 		adminHomePageObj = new AdminHomePage(driver);
 		branchesPageObj = new BranchesPage(driver);
+		Rolesobj = new Roles(driver);
+		
 //		by hashcode we can confirm we are passing same webdriver object to each and every page class
 //		System.out.println(driver.hashCode());
 	}
@@ -48,6 +52,19 @@ public class TestExecution {
 	}
 	
 	@Test(priority=2)
+	public void testRoles() {
+		adminHomePageObj.clickRoles();
+		Rolesobj.clickNewRole();
+		Rolesobj.RollName("Tester");
+		Rolesobj.RollDes("For Testing");
+		Rolesobj.RoleType("E");
+		Rolesobj.clickSubmit();
+		
+		
+	}
+	
+	
+	@Test(priority=3)
 	public void testLogout() throws InterruptedException {
 		Thread.sleep(2000);
 		adminHomePageObj.clickLogout();
