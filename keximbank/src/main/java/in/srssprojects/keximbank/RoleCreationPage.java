@@ -25,7 +25,7 @@ public class RoleCreationPage extends AdminHomePage{
 		private WebElement RoleDes;
 
 		// RoleType
-		@FindBy(how = How.ID, using = "lbRtypeN")
+		@FindBy(how = How.ID, using = "lstRtypeN")
 		private WebElement RoleType;
 
 		// submit

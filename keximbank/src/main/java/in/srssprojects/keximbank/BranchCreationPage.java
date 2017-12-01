@@ -54,6 +54,11 @@ public class BranchCreationPage extends AdminHomePage {
 	@FindBy(how = How.ID, using = "Btn_cancel")
 	private WebElement cancel;
 
+	//get country
+	public WebElement getCountry() {
+		return this.country;
+	}
+	
 	// fill branch name
 	public void fillBranchName(String branchName) {
 		this.branchName.sendKeys(branchName);

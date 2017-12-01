@@ -44,6 +44,10 @@ public class BranchesPage extends AdminHomePage {
 	@FindBy(how = How.ID, using="BtnNewBR")
 	private WebElement newBranch;
 	
+	public WebElement getCountry() {
+		return this.country;
+	}
+	
 	//select country
 	public void selectCountry(String country) {
 		Select s = new Select(this.country);

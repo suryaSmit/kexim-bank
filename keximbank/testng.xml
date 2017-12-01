@@ -3,12 +3,11 @@
 <suite name="suite">
     <test name="test">
         <classes>
-            <class name="in.srssprojects.keximbank.TestExecution">
+             <class name="in.srssprojects.keximbank.BasicExecution">
                 <methods>
-                    <include name="testLogin"></include>
-                    <include name="testLogout"></include>
-                    <include name="testBranchSearch"/>
-                    <include name="testBranchSearchClear"/>
+                    <include name="testLogin"/>
+                    <include name="testLogout"/>
+                    <include name="testBranchCreation"></include>
                 </methods>
             </class>
         </classes>

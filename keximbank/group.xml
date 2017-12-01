@@ -4,11 +4,11 @@
     <test name="groups test">
         <groups>
             <run>
-               <include name="create"></include>
+               <include name="branches"></include>
             </run>
         </groups>
         <classes>
-            <class name="in.srssprojects.keximbank.TestExecution"></class>
+             <class name="in.srssprojects.keximbank.BasicExecution"></class>
         </classes>
     </test>
 </suite>

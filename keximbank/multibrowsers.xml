@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="multi browser suite">
+	<parameter name="username" value="Admin"></parameter>
+	<parameter name="password" value="Admin"></parameter>
+	<test name="firefox test">
+	    <parameter name="browsername" value="firefox"></parameter>
+		<groups>
+			<run>
+				<include name="branches"></include>
+			</run>
+		</groups>
+		<classes>
+			<class name="in.srssprojects.keximbank.BrowserCompatibility"></class>
+		</classes>
+	</test>
+	
+	<test name="chrome test">
+	    <parameter name="browsername" value="chrome"></parameter>
+		<groups>
+			<run>
+				<include name="branches"></include>
+			</run>
+		</groups>
+		<classes>
+			<class name="in.srssprojects.keximbank.BrowserCompatibility"></class>
+		</classes>
+	</test>
+</suite>
