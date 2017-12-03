@@ -13,14 +13,14 @@ public class BrowserCompatibility extends TestExecution{
 	public void browserLaunch(String browserName) {
 		if(browserName.equalsIgnoreCase("firefox")) {
 			System.setProperty("webdriver.gecko.driver", ".//resources/geckodriver");
-			driver = new FirefoxDriver();
+			wdriver = new FirefoxDriver();
 		}
 		if(browserName.equalsIgnoreCase("chrome")) {
 			System.setProperty("webdriver.chrome.driver", ".//resources/chromedriver");
-			driver = new ChromeDriver();
+			wdriver = new ChromeDriver();
 		}
-		driver.get("http://www.srssprojects.in");
 		setup();
+		
 	}
 	
 	@AfterClass(groups= {"branches","search","clear","create","reset","cancel","roles"})

@@ -2,12 +2,15 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
 <suite name="suite">
     <test name="test">
+        <parameter name="username" value="Admin"></parameter>
+		<parameter name="password" value="Admin"></parameter>
         <classes>
              <class name="in.srssprojects.keximbank.BasicExecution">
                 <methods>
                     <include name="testLogin"/>
                     <include name="testLogout"/>
-                    <include name="testBranchCreation"></include>
+                    <include name="testBranchSearch"></include>
+                    <include name="testBranchSearchClear"></include>
                 </methods>
             </class>
         </classes>
