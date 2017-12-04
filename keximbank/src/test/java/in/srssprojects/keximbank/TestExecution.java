@@ -105,7 +105,7 @@ public class TestExecution {
 //		test.log(LogStatus.INFO, "clear button clicked");
 //		Reporter.log("clear button clicked");
 		
-		assertTrue(Validations.isTextOfOptionEquals("ALL", branchesPageObj.getCountry()));
+		assertTrue(Validations.isTextOfOptionEquals("All", branchesPageObj.getCountry()));
 //		test.log(LogStatus.PASS, "test passed");
 //		report.endTest(test);
 		
@@ -115,7 +115,7 @@ public class TestExecution {
 	public void testBranchCreation(){
 		adminHomePageObj.clickBranches();
 		branchesPageObj.clickNewBranch();
-		branchCreationPageObj.fillBranchName("miyapur1234");
+		branchCreationPageObj.fillBranchName("miyapur12391");
 		branchCreationPageObj.fillAddress1("miyapur");
 		branchCreationPageObj.fillZipCode("12345");
 		branchCreationPageObj.selectCountry("INDIA");
