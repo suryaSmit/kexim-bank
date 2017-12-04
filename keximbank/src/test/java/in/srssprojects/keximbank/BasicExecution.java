@@ -20,7 +20,6 @@ public class BasicExecution extends TestExecution {
 	public void closeBrowser() throws InterruptedException {
 		Thread.sleep(2000);
 		wdriver.close();
-		report.flush();
 	}
 	
 

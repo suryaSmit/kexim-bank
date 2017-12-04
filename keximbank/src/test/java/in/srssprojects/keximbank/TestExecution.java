@@ -9,6 +9,7 @@ import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.events.EventFiringWebDriver;
+import org.testng.annotations.Listeners;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
@@ -17,7 +18,7 @@ import com.relevantcodes.extentreports.ExtentTest;
 import com.relevantcodes.extentreports.LogStatus;
 
 import org.testng.Reporter;
-
+//@Listeners(TestListerner.class)
 public class TestExecution {
 	WebDriver wdriver;
 	EventFiringWebDriver driver;
@@ -27,8 +28,6 @@ public class TestExecution {
 	Roles Rolesobj;
 	BranchCreationPage branchCreationPageObj;
 	RoleCreationPage roleCreationPageObj;
-	ExtentReports report;
-	ExtentTest test;
 	
 	public void eventsSetup() {
 		driver = new EventFiringWebDriver(wdriver);
@@ -36,7 +35,7 @@ public class TestExecution {
 		driver.register(listener);
 	}
 	
-	public String getSystemTime() {
+	public static String getSystemTime() {
 		Date date = new Date();
 		DateFormat df = new SimpleDateFormat("dd-MMM/hh:mm:ss");
 		return df.format(date);
@@ -46,7 +45,7 @@ public class TestExecution {
 		driver.get("http://srssprojects.in");
 		driver.manage().window().maximize();
 		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-		report = new ExtentReports(".//reports/report"+getSystemTime()+".html");
+//		report = new ExtentReports(".//reports/report"+getSystemTime()+".html");
 		keximHomePageObj = new KeximHomePage();
 		adminHomePageObj = new AdminHomePage(driver);
 		branchesPageObj = new BranchesPage(driver);
@@ -58,57 +57,57 @@ public class TestExecution {
 	@Test(priority=0, timeOut=10000, groups= {"branches","search","clear","create","reset","cancel","roles"})            
 	@Parameters({"username","password"})
 	public void testLogin(String username, String password) throws InterruptedException {
-		test = report.startTest("testLogin");
+//		test = report.startTest("testLogin");
 		keximHomePageObj.fillUserName(username, driver);
-		test.log(LogStatus.INFO, "username entered");
+//		test.log(LogStatus.INFO, "username entered");
 //		Reporter.log("username entered");
 //		Thread.sleep(2000);
 		keximHomePageObj.fillPassword(password, driver);
-		test.log(LogStatus.INFO, "password entered");
+//		test.log(LogStatus.INFO, "password entered");
 //		Reporter.log("password entered");
 		keximHomePageObj.clickLoginButton(driver);
-		test.log(LogStatus.INFO, "login button clicked");
+//		test.log(LogStatus.INFO, "login button clicked");
 //		Reporter.log("login button clicked");
 		assertTrue(Validations.urlContains("adminflow", driver));
-		test.log(LogStatus.PASS, "test passed");
-		report.endTest(test);
+//		test.log(LogStatus.PASS, "test passed");
+//		report.endTest(test);
 		
 	}
 	
 	@Test(priority=1,dependsOnMethods= {"testLogin"}, groups= {"branches", "search"})
 	public void testBranchSearch() {
-		test = report.startTest("testBranchSearch");
+//		test = report.startTest("testBranchSearch");
 		adminHomePageObj.clickBranches();
-		test.log(LogStatus.INFO, "branhces clicked");
+//		test.log(LogStatus.INFO, "branhces clicked");
 //		Reporter.log("branches clicked");
 		branchesPageObj.selectCountry("UK");
-		test.log(LogStatus.INFO, "UK as country selected");
+//		test.log(LogStatus.INFO, "UK as country selected");
 //		Reporter.log("UK as country selected");
 		branchesPageObj.selectState("England");
-		test.log(LogStatus.INFO, "England as state selected");
+//		test.log(LogStatus.INFO, "England as state selected");
 //		Reporter.log("England as state selected");
 		branchesPageObj.selectCity("oxford");
-		test.log(LogStatus.INFO, "oxford as city selected");
+//		test.log(LogStatus.INFO, "oxford as city selected");
 //		Reporter.log("oxford as city selected");
 		branchesPageObj.clickSearch();
-		test.log(LogStatus.INFO, "search button clikced");
+//		test.log(LogStatus.INFO, "search button clikced");
 //		Reporter.log("serach button clicked");
 		assertTrue(true);
-		test.log(LogStatus.PASS, "test passed");
-		report.endTest(test);
+//		test.log(LogStatus.PASS, "test passed");
+//		report.endTest(test);
 		
 	}
 	
 	@Test(priority=2, dependsOnMethods= {"testBranchSearch", "testLogin"}, groups= {"branches","search"})
 	public void testBranchSearchClear() {
-		test = report.startTest("testBranchSearchClear");
+//		test = report.startTest("testBranchSearchClear");
 		branchesPageObj.clickClear();
-		test.log(LogStatus.INFO, "clear button clicked");
+//		test.log(LogStatus.INFO, "clear button clicked");
 //		Reporter.log("clear button clicked");
 		
 		assertTrue(Validations.isTextOfOptionEquals("ALL", branchesPageObj.getCountry()));
-		test.log(LogStatus.PASS, "test passed");
-		report.endTest(test);
+//		test.log(LogStatus.PASS, "test passed");
+//		report.endTest(test);
 		
 	}
 	
@@ -176,12 +175,12 @@ public class TestExecution {
 	
 	@Test(priority  =8, groups= {"branches","search","clear","create","reset","cancel","roles"})
 	public void testLogout() throws InterruptedException {
-		test = report.startTest("testLogout");
+//		test = report.startTest("testLogout");
 		Thread.sleep(2000);
 		adminHomePageObj.clickLogout();
-		test.log(LogStatus.INFO, "logout button clicked");
-		test.log(LogStatus.PASS, "test passed");
-		report.endTest(test);
+//		test.log(LogStatus.INFO, "logout button clicked");
+//		test.log(LogStatus.PASS, "test passed");
+//		report.endTest(test);
 		
 	}
 

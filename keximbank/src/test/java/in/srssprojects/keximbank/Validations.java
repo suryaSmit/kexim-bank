@@ -41,6 +41,7 @@ public class Validations {
 	//
 	public static boolean isTextOfOptionEquals(String expectedOption, WebElement selectElement) {
 		String actualOption = new Select(selectElement).getFirstSelectedOption().getText();
+		System.out.println(actualOption);
 		return expectedOption.equals(actualOption);
 	}
 }

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="parallel suite" parallel="tests"  thread-count="2">
+    <listeners>
+        <listener class-name="in.srssprojects.keximbank.TestListener"></listener>
+    </listeners>
+	<parameter name="username" value="Admin"></parameter>
+	<parameter name="password" value="Admin"></parameter>
+	<test name="mac chrome">
+	    <parameter name="browsername" value="chrome"></parameter>
+	    <parameter name="platform" value="mac"></parameter>
+	    <parameter name="nodeUrl" value="http://192.168.47.1:5555/wd/hub"></parameter>
+		<groups>
+			<run>
+				<include name="branches"></include>
+			</run>
+		</groups>
+		<classes>
+			<class name="in.srssprojects.keximbank.GridExecution"></class>
+		</classes>
+	</test>
+	
+	<test name="ubuntu firefox">
+	    <parameter name="browsername" value="firefox"></parameter>
+	    <parameter name="platform" value="linux"></parameter>
+	    <parameter name="nodeUrl" value="http://192.168.47.131:5555/wd/hub"></parameter>
+		<groups>
+			<run>
+				<include name="branches"></include>
+			</run>
+		</groups>
+		<classes>
+			<class name="in.srssprojects.keximbank.GridExecution"></class>
+		</classes>
+	</test>
+</suite>
