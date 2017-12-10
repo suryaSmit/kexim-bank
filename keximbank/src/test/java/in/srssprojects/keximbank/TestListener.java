@@ -46,7 +46,7 @@ public class TestListener extends Listener implements ITestListener, ISuiteListe
 
 	@Override
 	public void onTestStart(ITestResult result) {
-		startTest(result.getName());
+		startTest(result.getName()+result.getParameters());
 		test.log(LogStatus.INFO, "test started");
 		
 	}

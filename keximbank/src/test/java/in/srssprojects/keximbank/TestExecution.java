@@ -1,4 +1,4 @@
- package in.srssprojects.keximbank;
+package in.srssprojects.keximbank;
 
 import static org.testng.Assert.assertTrue;
 
@@ -17,7 +17,12 @@ import com.relevantcodes.extentreports.ExtentReports;
 import com.relevantcodes.extentreports.ExtentTest;
 import com.relevantcodes.extentreports.LogStatus;
 
+import utility.Excel;
+import utility.ExcelDataProvider;
+import utility.Validations;
+
 import org.testng.Reporter;
+
 //@Listeners(TestListerner.class)
 public class TestExecution {
 	WebDriver wdriver;
@@ -28,24 +33,25 @@ public class TestExecution {
 	Roles Rolesobj;
 	BranchCreationPage branchCreationPageObj;
 	RoleCreationPage roleCreationPageObj;
-	
+
 	public void eventsSetup() {
 		driver = new EventFiringWebDriver(wdriver);
 		Listener listener = new Listener();
 		driver.register(listener);
 	}
-	
+
 	public static String getSystemTime() {
 		Date date = new Date();
 		DateFormat df = new SimpleDateFormat("dd-MMM/hh:mm:ss");
 		return df.format(date);
 	}
+
 	public void setup() {
 		eventsSetup();
 		driver.get("http://srssprojects.in");
 		driver.manage().window().maximize();
 		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-//		report = new ExtentReports(".//reports/report"+getSystemTime()+".html");
+		// report = new ExtentReports(".//reports/report"+getSystemTime()+".html");
 		keximHomePageObj = new KeximHomePage();
 		adminHomePageObj = new AdminHomePage(driver);
 		branchesPageObj = new BranchesPage(driver);
@@ -53,66 +59,67 @@ public class TestExecution {
 		Rolesobj = new Roles(driver);
 		roleCreationPageObj = new RoleCreationPage(driver);
 	}
-	
-	@Test(priority=0, timeOut=10000, groups= {"branches","search","clear","create","reset","cancel","roles"})            
-	@Parameters({"username","password"})
+
+	@Test(priority = 0, timeOut = 10000, groups = { "branches", "search", "clear", "create", "reset", "cancel",
+			"roles" })
+	@Parameters({ "username", "password" })
 	public void testLogin(String username, String password) throws InterruptedException {
-//		test = report.startTest("testLogin");
+		// test = report.startTest("testLogin");
 		keximHomePageObj.fillUserName(username, driver);
-//		test.log(LogStatus.INFO, "username entered");
-//		Reporter.log("username entered");
-//		Thread.sleep(2000);
+		// test.log(LogStatus.INFO, "username entered");
+		// Reporter.log("username entered");
+		// Thread.sleep(2000);
 		keximHomePageObj.fillPassword(password, driver);
-//		test.log(LogStatus.INFO, "password entered");
-//		Reporter.log("password entered");
+		// test.log(LogStatus.INFO, "password entered");
+		// Reporter.log("password entered");
 		keximHomePageObj.clickLoginButton(driver);
-//		test.log(LogStatus.INFO, "login button clicked");
-//		Reporter.log("login button clicked");
+		// test.log(LogStatus.INFO, "login button clicked");
+		// Reporter.log("login button clicked");
 		assertTrue(Validations.urlContains("adminflow", driver));
-//		test.log(LogStatus.PASS, "test passed");
-//		report.endTest(test);
-		
+		// test.log(LogStatus.PASS, "test passed");
+		// report.endTest(test);
+
 	}
-	
-	@Test(priority=1,dependsOnMethods= {"testLogin"}, groups= {"branches", "search"})
+
+	@Test(priority = 1, dependsOnMethods = { "testLogin" }, groups = { "branches", "search" })
 	public void testBranchSearch() {
-//		test = report.startTest("testBranchSearch");
+		// test = report.startTest("testBranchSearch");
 		adminHomePageObj.clickBranches();
-//		test.log(LogStatus.INFO, "branhces clicked");
-//		Reporter.log("branches clicked");
+		// test.log(LogStatus.INFO, "branhces clicked");
+		// Reporter.log("branches clicked");
 		branchesPageObj.selectCountry("UK");
-//		test.log(LogStatus.INFO, "UK as country selected");
-//		Reporter.log("UK as country selected");
+		// test.log(LogStatus.INFO, "UK as country selected");
+		// Reporter.log("UK as country selected");
 		branchesPageObj.selectState("England");
-//		test.log(LogStatus.INFO, "England as state selected");
-//		Reporter.log("England as state selected");
+		// test.log(LogStatus.INFO, "England as state selected");
+		// Reporter.log("England as state selected");
 		branchesPageObj.selectCity("oxford");
-//		test.log(LogStatus.INFO, "oxford as city selected");
-//		Reporter.log("oxford as city selected");
+		// test.log(LogStatus.INFO, "oxford as city selected");
+		// Reporter.log("oxford as city selected");
 		branchesPageObj.clickSearch();
-//		test.log(LogStatus.INFO, "search button clikced");
-//		Reporter.log("serach button clicked");
+		// test.log(LogStatus.INFO, "search button clikced");
+		// Reporter.log("serach button clicked");
 		assertTrue(true);
-//		test.log(LogStatus.PASS, "test passed");
-//		report.endTest(test);
-		
+		// test.log(LogStatus.PASS, "test passed");
+		// report.endTest(test);
+
 	}
-	
-	@Test(priority=2, dependsOnMethods= {"testBranchSearch", "testLogin"}, groups= {"branches","search"})
+
+	@Test(priority = 2, dependsOnMethods = { "testBranchSearch", "testLogin" }, groups = { "branches", "search" })
 	public void testBranchSearchClear() {
-//		test = report.startTest("testBranchSearchClear");
+		// test = report.startTest("testBranchSearchClear");
 		branchesPageObj.clickClear();
-//		test.log(LogStatus.INFO, "clear button clicked");
-//		Reporter.log("clear button clicked");
-		
+		// test.log(LogStatus.INFO, "clear button clicked");
+		// Reporter.log("clear button clicked");
+
 		assertTrue(Validations.isTextOfOptionEquals("All", branchesPageObj.getCountry()));
-//		test.log(LogStatus.PASS, "test passed");
-//		report.endTest(test);
-		
+		// test.log(LogStatus.PASS, "test passed");
+		// report.endTest(test);
+
 	}
-	
-	@Test(priority = 3,groups= {"branches","create"})
-	public void testBranchCreation(){
+
+	@Test(priority = 3, groups = { "branches", "create" })
+	public void testBranchCreation() {
 		adminHomePageObj.clickBranches();
 		branchesPageObj.clickNewBranch();
 		branchCreationPageObj.fillBranchName("miyapur12391");
@@ -126,8 +133,51 @@ public class TestExecution {
 		driver.switchTo().alert().accept();
 		assertTrue(Validations.alertTextContains("New Branch with id", actualAlertText));
 	}
+
+	@Test(priority = 4, groups = { "branches", "create" })
+	public void testBranchCreationWithExcelData() {
+		Excel excel = new Excel(".//resources/");
+		excel.setExcel("kexim data.xls", "branches");
+		int rc = excel.getRowCount();
+		for (int r = 1; r < rc; r++) {
+				String branchName = excel.readCell(r, 0);
+				String address1 = excel.readCell(r, 1);
+				String zipcode = excel.readCell(r, 2);
+				String country = excel.readCell(r, 3);
+				String state = excel.readCell(r, 4);
+				String city = excel.readCell(r, 5);
+				adminHomePageObj.clickBranches();
+				branchesPageObj.clickNewBranch();
+				branchCreationPageObj.fillBranchName(branchName);
+				branchCreationPageObj.fillAddress1(address1);
+				branchCreationPageObj.fillZipCode(zipcode);
+				branchCreationPageObj.selectCountry(country);
+				branchCreationPageObj.selectState(state);
+				branchCreationPageObj.selectCity(city);
+				branchCreationPageObj.clickSubmit();
+				String actualAlertText = driver.switchTo().alert().getText();
+				driver.switchTo().alert().accept();
+				assertTrue(Validations.alertTextContains("New Branch with id", actualAlertText));
+		}
+	}
 	
-	@Test(priority = 4,groups= {"branches","reset"})
+	@Test(priority = 5, groups = { "branches", "create" }, dataProviderClass=ExcelDataProvider.class, dataProvider="branch data")
+	public void testBranchCreationWithDataProvider(String bname, String add1, String zcode, String country, String state, String city) {
+		adminHomePageObj.clickBranches();
+		branchesPageObj.clickNewBranch();
+		branchCreationPageObj.fillBranchName(bname);
+		branchCreationPageObj.fillAddress1(add1);
+		branchCreationPageObj.fillZipCode(zcode);
+		branchCreationPageObj.selectCountry(country);
+		branchCreationPageObj.selectState(state);
+		branchCreationPageObj.selectCity(city);
+		branchCreationPageObj.clickSubmit();
+		String actualAlertText = driver.switchTo().alert().getText();
+		driver.switchTo().alert().accept();
+		assertTrue(Validations.alertTextContains("New Branch with id", actualAlertText));
+	}
+
+	@Test(priority = 6, groups = { "branches", "reset" })
 	public void testBranchCreationReset() {
 		adminHomePageObj.clickBranches();
 		branchesPageObj.clickNewBranch();
@@ -140,18 +190,18 @@ public class TestExecution {
 		branchCreationPageObj.clickReset();
 		assertTrue(Validations.isTextOfOptionEquals("Select", branchCreationPageObj.getCountry()));
 	}
-	
-	
-	@Test(priority = 5, groups= {"branches","cancel"})
+
+	@Test(priority = 7, groups = { "branches", "cancel" })
 	public void testBranchCreationCancel() {
 		adminHomePageObj.clickBranches();
 		branchesPageObj.clickNewBranch();
 		branchCreationPageObj.fillBranchName("ajhfkjahdjkfahjk");
 		branchCreationPageObj.clickCancel();
 		assertTrue(Validations.isElementPresent(branchesPageObj.getCountry()));
-		
+
 	}
-	@Test(priority=6,groups= {"roles","create"})
+
+	@Test(priority = 8, groups = { "roles", "create" })
 	public void testRoleCreation() {
 		adminHomePageObj.clickRoles();
 		Rolesobj.clickNewRole();
@@ -160,28 +210,39 @@ public class TestExecution {
 		roleCreationPageObj.clickSubmit();
 		System.out.println(driver.switchTo().alert().getText());
 		driver.switchTo().alert().accept();
-		
-		
+
 	}
 	
-	@Test(priority = 7,groups= {"roles","reset"})
-	public void testRoleCreationReset(){
+	@Test(priority = 9, groups = { "roles", "create" }, dataProviderClass=ExcelDataProvider.class, dataProvider = "role data")
+	public void testRoleCreationWithDataProvider(String roleName, String roleType) {
+		adminHomePageObj.clickRoles();
+		Rolesobj.clickNewRole();
+		roleCreationPageObj.fillRollName(roleName);
+		roleCreationPageObj.selectRoleType(roleType);
+		roleCreationPageObj.clickSubmit();
+		System.out.println(driver.switchTo().alert().getText());
+		driver.switchTo().alert().accept();
+
+	}
+
+	@Test(priority = 10, groups = { "roles", "reset" })
+	public void testRoleCreationReset() {
 		adminHomePageObj.clickRoles();
 		Rolesobj.clickNewRole();
 		roleCreationPageObj.fillRollName("branch manager");
 		roleCreationPageObj.selectRoleType("E");
 		roleCreationPageObj.clickReset();
 	}
-	
-	@Test(priority  =8, groups= {"branches","search","clear","create","reset","cancel","roles"})
+
+	@Test(priority = 11, groups = { "branches", "search", "clear", "create", "reset", "cancel", "roles" })
 	public void testLogout() throws InterruptedException {
-//		test = report.startTest("testLogout");
+		// test = report.startTest("testLogout");
 		Thread.sleep(2000);
 		adminHomePageObj.clickLogout();
-//		test.log(LogStatus.INFO, "logout button clicked");
-//		test.log(LogStatus.PASS, "test passed");
-//		report.endTest(test);
-		
+		// test.log(LogStatus.INFO, "logout button clicked");
+		// test.log(LogStatus.PASS, "test passed");
+		// report.endTest(test);
+
 	}
 
 }
