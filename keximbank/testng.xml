@@ -12,8 +12,6 @@
                 <methods>
                     <include name="testLogin"/>
                     <include name="testLogout"/>
-                    <include name="testBranchCreationWithDataProvider"></include>
-                    <include name="testRoleCreationWithDataProvider"></include>
                 </methods>
             </class>
         </classes>
